@@ -17,8 +17,6 @@ int isFoldableUtil(node *a, node *b){
 	if(!a && !b)
 		return 1;
 
-	//cout << a->d << " " << b->d << endl;
-
 	if(!a || !b)
 		return 0;
 
