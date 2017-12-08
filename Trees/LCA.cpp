@@ -66,6 +66,7 @@ int main(){
     cout << "\nLCA(4, 6) = " << lca(r, 4, 6);
     cout << "\nLCA(3, 4) = " << lca(r, 3, 4);
     cout << "\nLCA(2, 4) = " << lca(r, 2, 4);
+    cout << "\nLCA(5, 6) = " << lca(r, 5, 6);
 
 	return 0;
 }
