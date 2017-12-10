@@ -17,7 +17,8 @@ void printBottomViewUtil(node *r, map<int, pair<int, node *>> &m, int hori_pos, 
 	if(!r)
 		return;
 
-	if(level > m[hori_pos].first)
+	// ">"" if first node at that level OR ">=" if later node in traversal
+	if(level >= m[hori_pos].first)
 		m[hori_pos] = make_pair(level, r);
 
 	printBottomViewUtil(r->lt, m, hori_pos-1, level+1);
@@ -63,6 +64,7 @@ int main(){
 	r->lt->rt->rt = newNode(14);
 	r->lt->rt->rt->rt = newNode(144);
 	r->rt->rt = newNode(25);
+	r->rt->lt = newNode(4);
 
 	printBottomView(r);
 
