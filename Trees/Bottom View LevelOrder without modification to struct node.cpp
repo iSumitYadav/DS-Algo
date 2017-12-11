@@ -13,34 +13,37 @@ node *newNode(int key){
 	return t;
 }
 
-void printBottomViewUtil(node *r, map<int, pair<int, node *>> &m, int hori_pos, int level){
-	if(!r)
-		return;
-
-	// ">"" if first node at that level OR ">=" if later node in traversal
-	if(level >= m[hori_pos].first)
-		m[hori_pos] = make_pair(level, r);
-
-	printBottomViewUtil(r->lt, m, hori_pos-1, level+1);
-	printBottomViewUtil(r->rt, m, hori_pos+1, level+1);
-}
-
 void printBottomView(node *r){
 	if(!r){
-		cout << "NULL";
+		cout << "NULL" << endl;
 		return;
 	}
 
-	// horizontal position and level of current node
-	int hori_pos = 0, level=0;
-	map<int, pair<int, node *>> m;
+	queue<pair<int, node *>> q;
+	map<int, node *> m;
+	int hd = 0;
 
-	printBottomViewUtil(r, m, hori_pos, level);
+	q.push(make_pair(hd, r));
 
-	map<int, pair<int, node *>>::iterator it;
+	while(!q.empty()){
+		pair<int, node *> t = q.front();
+		q.pop();
 
-	for(it=m.begin(); it!=m.end(); it++)
-		cout << (*it).second.second->d << " ";
+		m[t.first] = t.second;
+
+		if(t.second->lt){
+			q.push(make_pair(t.first-1, t.second->lt));
+		}
+
+		if(t.second->rt){
+			q.push(make_pair(t.first+1, t.second->rt));
+		}
+	}
+
+	map<int, node *>::iterator it;
+	for(it=m.begin(); it!=m.end(); it++){
+		cout << (*it).second->d << " ";
+	}cout << endl;
 }
 
 int main(){
