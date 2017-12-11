@@ -13,11 +13,25 @@ node *newNode(int key){
 	return t;
 }
 
+void printLeftViewUtil(node *r, int *depth, int level){
+	if(!r)
+		return;
+
+	if(*depth < level){
+		cout << r->d << " ";
+		*depth = level;
+	}
+
+	printLeftViewUtil(r->lt, depth, level+1);
+	printLeftViewUtil(r->rt, depth, level+1);
+}
+
 void printLeftView(node *r){
 	if(!r)
 		return;
 
-	
+	int depth = INT_MIN, level = 0;
+	return printLeftViewUtil(r, &depth, level);
 }
 
 int main(){
@@ -39,10 +53,12 @@ int main(){
 	r->lt->rt = newNode(3);
 	r->lt->rt->lt = newNode(10);
 	r->lt->rt->rt = newNode(14);
+	// r->lt->rt->rt->lt = newNode(143);
 	r->lt->rt->rt->rt = newNode(144);
 	r->rt->rt = newNode(25);
 	r->rt->lt = newNode(4);
 
+	cout << "Left View of BT\n";
 	printLeftView(r);
 
 	return 0;
