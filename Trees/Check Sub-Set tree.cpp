@@ -7,7 +7,7 @@ struct node{
 	node *lt=NULL, *rt=NULL;
 };
 
-node *newnode(int key){
+node *newNode(int key){
 	node *t = new node;
 	t->d = key;
 
@@ -63,30 +63,62 @@ int main(){
         \
     	7
 	*/
-	node *t = newnode(1);
-	t->lt = newnode(2);
-	t->rt = newnode(3);
-	t->lt->lt = newnode(4);
-	t->lt->rt = newnode(5);
-	t->rt->rt = newnode(6);
-	t->lt->lt->lt = newnode(44);
-	t->lt->lt->rt = newnode(7);
+	/*node *t = newNode(1);
+	t->lt = newNode(2);
+	t->rt = newNode(3);
+	t->lt->lt = newNode(4);
+	t->lt->rt = newNode(5);
+	t->rt->rt = newNode(6);
+	t->lt->lt->lt = newNode(44);
+	t->lt->lt->rt = newNode(7);
 
-	node *s = NULL;/*newnode(2);
-	s->lt = newnode(4);
-	s->rt = newnode(5);
-	s->lt->rt = newnode(7);*/
+	node *s = NULL;*//*newNode(2);
+	s->lt = newNode(4);
+	s->rt = newNode(5);
+	s->lt->rt = newNode(7);*/
 
-	/*node *t = newnode('a');
-    t->lt = newnode('b');
-    t->rt = newnode('d');
-    t->lt->lt = newnode('c');
-    t->rt->rt = newnode('e');
+	/*node *t = newNode('a');
+    t->lt = newNode('b');
+    t->rt = newNode('d');
+    t->lt->lt = newNode('c');
+    t->rt->rt = newNode('e');
  
-    node *s = newnode('a');
-    s->lt = newnode('b');
-    s->lt->lt = newnode('c');
-    s->rt = newnode('d');*/
+    node *s = newNode('a');
+    s->lt = newNode('b');
+    s->lt->lt = newNode('c');
+    s->rt = newNode('d');*/
+
+    // tREE 1
+    /* Construct the following tree
+              26
+            /   \
+          10     3
+        /    \     \
+      4      6      3
+       \	  \
+        30	   45
+    */
+    struct node *t        = newNode(26);
+    t->rt              = newNode(3);
+    t->rt->rt       = newNode(3);
+    t->lt               = newNode(10);
+    t->lt->lt         = newNode(4);
+    t->lt->lt->rt  = newNode(30);
+    t->lt->rt        = newNode(6);
+    t->lt->rt->rt        = newNode(45);
+ 
+    // tREE 2
+    /* Construct the following tree
+          10
+        /    \
+      4      6
+       \
+        30
+    */
+    struct node *s    = newNode(10);
+    s->rt          = newNode(6);
+    s->lt           = newNode(4);
+    s->lt->rt    = newNode(30);
 
 	if(isSubSETTree(t, s))
 		cout << "Yes: Tree S is SUB-SET Tree of Tree T" << endl;

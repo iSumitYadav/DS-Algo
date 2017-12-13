@@ -13,18 +13,18 @@ node *newNode(int key){
 	return t;
 }
 
-int isSubTreeUtil(node *t, node *s){
+int issubtreeUtil(node *t, node *s){
 	if(!t && !s)
 		return 1;
 
 	if(!t || !s)
 		return 0;
 
-	return (t->d == s->d) && isSubTreeUtil(t->lt, s->lt) && isSubTreeUtil(t->rt, s->rt);
+	return (t->d == s->d) && issubtreeUtil(t->lt, s->lt) && issubtreeUtil(t->rt, s->rt);
 }
 
-// TC: O(n) as a node is traversed single time only
-int isSubTree(node *t, node *s){
+// tC: O(n) as a node is traversed single time only
+int issubtree(node *t, node *s){
 	if(!t && !s)
 		return 1;
 
@@ -35,9 +35,9 @@ int isSubTree(node *t, node *s){
 		return 1;
 
 	if(t->d == s->d)
-		return isSubTreeUtil(t, s);
+		return issubtreeUtil(t, s);
 
-	return isSubTree(t->lt, s) || isSubTree(t->rt, s);
+	return issubtree(t->lt, s) || issubtree(t->rt, s);
 }
 
 int main(){
@@ -57,7 +57,7 @@ int main(){
         \
     	7
 	*/
-	node *t = newNode(123);
+	/*node *t = newNode(123);
 	t->lt = newNode(2);
 	t->rt = newNode(3);
 	t->lt->lt = newNode(4);
@@ -69,12 +69,44 @@ int main(){
 	node *s = newNode(2);
 	s->lt = newNode(4);
 	s->rt = newNode(5);
-	s->lt->rt = newNode(7);
+	s->lt->rt = newNode(7);*/
 
-	if(isSubTree(t, s))
-		cout << "Yes: Tree S is SubTree of Tree T" << endl;
+	// tREE 1
+    /* Construct the following tree
+              26
+            /   \
+          10     3
+        /    \     \
+      4      6      3
+       \	  \
+        30	   45
+    */
+    struct node *t        = newNode(26);
+    t->rt              = newNode(3);
+    t->rt->rt       = newNode(3);
+    t->lt               = newNode(10);
+    t->lt->lt         = newNode(4);
+    t->lt->lt->rt  = newNode(30);
+    t->lt->rt        = newNode(6);
+    t->lt->rt->rt        = newNode(45);
+ 
+    // tREE 2
+    /* Construct the following tree
+          10
+        /    \
+      4      6
+       \
+        30
+    */
+    struct node *s    = newNode(10);
+    s->rt          = newNode(6);
+    s->lt           = newNode(4);
+    s->lt->rt    = newNode(30);
+
+	if(issubtree(t, s))
+		cout << "Yes: tree s is subtree of tree t" << endl;
 	else
-		cout << "No: Tree S is not SUBTree of Tree T" << endl;
+		cout << "No: tree s is not sUBtree of tree t" << endl;
 
 	return 0;
 }
