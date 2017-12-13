@@ -31,8 +31,11 @@ int isSubSETTree(node *t, node *s){
 	if(!t && !s)
 		return 1;
 
-	if(!t || !s)
+	if(!t)
 		return 0;
+
+	if(!s)
+		return 1;
 
 	if(t->d == s->d)
 		return isSubSETTreeUtil(t, s);
@@ -69,10 +72,10 @@ int main(){
 	t->lt->lt->lt = newnode(44);
 	t->lt->lt->rt = newnode(7);
 
-	node *s = newnode(2);
+	node *s = NULL;/*newnode(2);
 	s->lt = newnode(4);
 	s->rt = newnode(5);
-	s->lt->rt = newnode(7);
+	s->lt->rt = newnode(7);*/
 
 	/*node *t = newnode('a');
     t->lt = newnode('b');
