@@ -18,7 +18,7 @@ void reverseAltLevelUsingInOrder(node *r, int level, vector<int> &v, int rev=0){
 		return;
 
 	reverseAltLevelUsingInOrder(r->lt, level+1, v, rev);
-	if(level%2 == 0){
+	if(!(level & 1)){ // if condition True when level is even
 			if(rev && !v.empty()){
 			r->d = v.front();
 			v.erase(v.begin());
