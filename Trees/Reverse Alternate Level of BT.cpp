@@ -13,7 +13,7 @@ node *newNode(int key){
 	return t;
 }
 
-void levelwiseLevelOrder(node *r, int arr[]={}){
+void levelwiseLevelOrder(node *r, int arr[]){
 	if(!r)
 		return;
 
