@@ -61,8 +61,8 @@ int minEditDistance(char x[], char y[], int l1, int l2){
 }
 
 int main(){
-	char x[] = "abcdef";
-	char y[] = "azced";
+	char x[] = "adc";
+	char y[] = "ab";
 	int l1 = strlen(x);
 	int l2 = strlen(y);
 
