@@ -3,39 +3,40 @@ using namespace std;
 
 class Graph{
 	int nodes;
-	list<int> *adj_list;
+	list<int> *edge;
 
+	void depthFirstSearchUtil(int node, bool visited[]);
 public:
 	Graph(int nodes){
 		this->nodes = nodes;
-		adj_list = new list<int>[nodes];
+		edge = new list<int>[nodes];
 	}
 
 	void addEdge(int a, int b){
-		adj_list[a].push_back(b);
+		edge[a].push_back(b);
 	}
 
-	void breadthFirstSearch(int src);
+	void depthFirstSearch(int src);
 };
 
-void Graph::breadthFirstSearch(int src){
+void Graph::depthFirstSearch(int src){
 	bool *visited = new bool[nodes];
 	memset(visited, false, sizeof(visited));
 
-	list<int> q;
+	stack<int> s;
 	list<int>::iterator it;
 
-	q.push_back(src);
+	s.push(src);
 	visited[src] = true;
 
-	while(!q.empty()){
-		src = q.front();
+	while(!s.empty()){
+		src = s.top();
+		s.pop();
 		printf("%d ", src);
-		q.pop_front();
 
-		for(it=adj_list[src].begin(); it!=adj_list[src].end(); it++){
+		for(it=edge[src].begin(); it!=edge[src].end(); it++){
 			if(!visited[*it]){
-				q.push_back(*it);
+				s.push(*it);
 				visited[*it] = true;
 			}
 		}
@@ -69,8 +70,8 @@ int main(){
     g.addEdge(3, 4);
     g.addEdge(4, 4);
  
-    printf("Breadth First Traversal: \n");
-    g.breadthFirstSearch(2);
+    cout << "Depth First Traversal\n";
+    g.depthFirstSearch(2);
 
 	return 0;
 }
