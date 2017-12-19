@@ -10,10 +10,10 @@ bool subSetSum(int arr[], int n, int sum){
 				dp[i][j] = false;
 			}else if(j == 0)
 				dp[i][j] == true;
-			else if(arr[i-1] > j){
+			else if(j < arr[i-1]){
 				dp[i][j] = dp[i-1][j];
-			}else if(arr[i-1] <= j){
-				dp[i][j] = dp[i-1][j] | dp[i-1][j-arr[i-1]];
+			}else if(j >= arr[i-1]){
+				dp[i][j] = dp[i-1][j] || dp[i-1][j - arr[i-1]];
 			}
 		}
 	}
