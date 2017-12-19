@@ -15,9 +15,8 @@ bool subSetSum(int arr[], int n, int sum){
 			}else if(arr[i-1] <= j){
 				dp[i][j] = dp[i-1][j] | dp[i-1][j-arr[i-1]];
 			}
-			cout << dp[i][j] << " ";
-		}cout << endl;
-	}cout << endl;
+		}
+	}
 
 	return dp[n][sum];
 }
