@@ -11,7 +11,7 @@ int main(){
 		cout << "2 ";
 
 		while(count <= n){
-			for(c=2; c<= i-1; c++){
+			for(c=2; c<= sqrt(i-1); c++){
 				if(i%c == 0)
 					break;
 			}
