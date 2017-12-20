@@ -6,9 +6,9 @@ struct game{
 	int second;
 };
 
-game optimalGameStrategy(int *arr, int n){
+game optimalGameStrategy(int *arr, int n, int printDP){
 	game dp[n][n];
-	memset(dp, 0, sizeof(dp));
+	//memset(dp, 0, sizeof(dp));
 	int len, strt, end, i, j;
 
 	for(len=1; len<=n; len++){
@@ -31,12 +31,52 @@ game optimalGameStrategy(int *arr, int n){
 		}
 	}
 
-	for(i=0; i<n; i++){
-		for(j=0; j<n; j++){
-			if(dp[i][j].first)
-				printf("(%2d, %2d) ", dp[i][j].first, dp[i][j].second);
-			else
-				printf("(__, __) ");
+	if(printDP){
+			for(i=0; i<n; i++){
+			for(j=0; j<n; j++){
+				if(i <= j)
+					printf("(%2d, %2d) ", dp[i][j].first, dp[i][j].second);
+				else
+					printf("(__, __) ");
+			}printf("\n");
+		}printf("\n");
+	}
+
+	return dp[0][n-1];
+}
+
+game optimalGameStrategyMethod2(int arr[], int n, int printDP){
+	game dp[n][n];
+	int len, strt, end, i, j;
+
+	for(len=1; len<=n; len++){
+		// for(strt=0; strt + len -1 < n; strt++){
+		strt = 0;
+		end = strt + len - 1;
+		while(end < n){
+			if(strt == end){
+				dp[strt][end].first  = arr[strt];
+				dp[strt][end].second = 0;
+			}else if(arr[strt] + dp[strt+1][end].second > dp[strt][end-1].second + arr[end]){
+				dp[strt][end].first  = arr[strt] + dp[strt+1][end].second;
+				dp[strt][end].second = dp[strt+1][end].first;
+			}else{
+				dp[strt][end].first  = dp[strt][end-1].second + arr[end];
+				dp[strt][end].second = dp[strt][end-1].first;
+			}
+			strt++;
+			end = strt + len - 1;
+		}
+	}
+
+	if(printDP){
+			for(i=0; i<n; i++){
+			for(j=0; j<n; j++){
+				if(i <= j)
+					printf("(%2d, %2d) ", dp[i][j].first, dp[i][j].second);
+				else
+					printf("(__, __) ");
+			}printf("\n");
 		}printf("\n");
 	}
 
@@ -46,9 +86,13 @@ game optimalGameStrategy(int *arr, int n){
 int main(){
 	int arr[] = {20, 30, 2, 2, 2, 10};
 	int n = sizeof(arr)/sizeof(arr[0]);
+	int printDP = 0;
 
-	game g = optimalGameStrategy(arr, n);
-	printf("\nFirst Player: %d\nSecond Player: %d\n", g.first, g.second);
+	game g = optimalGameStrategy(arr, n, printDP);
+	printf("First Player:  %d\nSecond Player: %d\n\n", g.first, g.second);
+
+	g = optimalGameStrategyMethod2(arr, n, printDP);
+	printf("First Player:  %d\nSecond Player: %d\n", g.first, g.second);
 
 	return 0;
 }
