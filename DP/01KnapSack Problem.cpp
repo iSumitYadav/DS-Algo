@@ -2,10 +2,10 @@
 using namespace std;
 
 int knapSack(int val[], int wt[], int n, int wtAllowed){
-	int dp[n+1][wtAllowed+1];
+	int dp[n+1][wtAllowed+1], i, j;
 
-	for(int i=0; i<=n; i++){
-		for(int j=0; j<=wtAllowed; j++){
+	for(i=0; i<=n; i++){
+		for(j=0; j<=wtAllowed; j++){
 			if(i == 0 || j == 0)
 				dp[i][j] = 0;
 			else if(j < wt[i-1])
@@ -21,6 +21,19 @@ int knapSack(int val[], int wt[], int n, int wtAllowed){
 		}printf("\n");
 	}printf("\n");*/
 
+	printf("Wts placed in knapSack are: ");
+
+	i = n, j = wtAllowed;
+	while(i > 0 && j > 0){
+		if(dp[i][j] == dp[i-1][j])
+			i--;
+		else{
+			i--;
+			printf("%d(%d) ", wt[i], val[i]);
+			j -= wt[i];
+		}
+	}
+
 	return dp[n][wtAllowed];
 }
 
@@ -32,7 +45,7 @@ int main(){
 	int wtAllowed;
 
 	while(scanf("%d", &wtAllowed) && wtAllowed > 0)
-		printf("Max Val allowed for %d wt: %d\n\n", wtAllowed, knapSack(val, wt, n, wtAllowed));
+		printf("\nMax Val allowed for %d wt: %d\n\n", wtAllowed, knapSack(val, wt, n, wtAllowed));
 
 	return 0;
 }
