@@ -83,7 +83,7 @@ void Graph::runDijkstra(int src){
 	printf("Vtx   Wt    Prnt\n");
 	for(int i=0; i<v; i++){
 		printf("%2d   (%2d)   %2d\n", i, wts[i], parent[i]);
-	}
+	}cout << endl;
 }
 
 int main(){
@@ -104,12 +104,21 @@ int main(){
 	g.addEdge(6, 8, 6);
 	g.addEdge(7, 8, 7);
 
+	Graph g2(6);
+	g2.addEdge(0, 1, 5);
+	g2.addEdge(0, 3, 9);
+	g2.addEdge(0, 4, 2);
+	g2.addEdge(1, 2, 2);
+	g2.addEdge(2, 3, 3);
+	g2.addEdge(3, 5, 2);
+	g2.addEdge(4, 5, 3);
+
 	int src;
 	cin >> src;
 
 	//g.printGraph(src);
 
-	g.runDijkstra(src);
+	g2.runDijkstra(src);
 
 	return 0;
 }
