@@ -2,7 +2,7 @@
 using namespace std;
 
 #define V 4
-#define INF 9999
+#define INF INT_MAX
 
 void floydWarshall(int g[V][V]){
 	int sol[V][V]={0}, path[V][V]={0};
@@ -21,7 +21,7 @@ void floydWarshall(int g[V][V]){
 	for(int k=0; k<V; k++){
 		for(int i=0;i<V; i++){
 			for(int j=0; j<V; j++){
-				if(sol[i][j] > sol[i][k] + sol[k][j]){
+				if(sol[i][k] != INF && sol[k][j] != INF && sol[i][j] > sol[i][k] + sol[k][j]){
 					sol[i][j] = sol[i][k] + sol[k][j];
 					path[i][j] = path[k][j];
 				}
@@ -45,14 +45,16 @@ void floydWarshall(int g[V][V]){
 
 	printf("\nPrint every Existing Path:");
 	for(int i=0;i<V; i++){
-		for(int j=i+1; j>i && j<V; j++){
-			int sink = j;
-			printf("\nSrc: %d, Sink: %d\n", i, sink);
-			while(sink != i){
-				printf("%d(%d) <- ", sink, sol[i][sink]);
-				sink = path[i][sink];
+		for(int j=0; j<V; j++){
+			if(i != j){
+				int sink = j;
+				printf("\nSrc: %d, Sink: %d\n", i, sink);
+				while(sink != i){
+					printf("%d(%d) <- ", sink, sol[i][sink]);
+					sink = path[i][sink];
+				}
+				printf("%d\n", i);
 			}
-			printf("%d\n", i);
 		}
 	}
 }
@@ -67,11 +69,16 @@ int main(){
        \|/         |
        (1)------->(2)
             3           */
-    int graph[V][V] = { {0,   5,  INF, 10},
+    /*int graph[V][V] = { {0,   5,  INF, 10},
                         {INF, 0,   3, INF},
                         {INF, INF, 0,   1},
                         {INF, INF, INF, 0}
-                      };
+                      };*/
+
+	int graph[V][V] = { {  0,  3,    6,  15},
+						{INF,  0,   -2, INF},
+						{INF, INF,   0,   2},
+						{  1, INF, INF,   0}};
  
     floydWarshall(graph);
 
