@@ -34,12 +34,26 @@ void floydWarshall(int g[V][V]){
 		for(int j=0; j<V; j++){
 			printf("%2d ", sol[i][j]!=INF ? sol[i][j] : -1);
 		}printf("\n");
-	}printf("\nPath Matrix: \n");
+	}
 
+	/*printf("\nPath Matrix: \n");
 	for(int i=0;i<V; i++){
 		for(int j=0; j<V; j++){
 			printf("%2d ", path[i][j]);
 		}printf("\n");
+	}*/
+
+	printf("\nPrint every Existing Path:");
+	for(int i=0;i<V; i++){
+		for(int j=i+1; j>i && j<V; j++){
+			int sink = j;
+			printf("\nSrc: %d, Sink: %d\n", i, sink);
+			while(sink != i){
+				printf("%d(%d) <- ", sink, sol[i][sink]);
+				sink = path[i][sink];
+			}
+			printf("%d\n", i);
+		}
 	}
 }
 
