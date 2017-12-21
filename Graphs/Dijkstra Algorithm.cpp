@@ -14,7 +14,7 @@ public:
 
 	void addEdge(int a, int b, int wt){
 		adj[a].push_back(make_pair(b, wt));
-		adj[b].push_back(make_pair(a, wt));
+		adj[b].push_back(make_pair(a, wt)); // This is for Undirected Graph, Working For DAG also
 		// e++; // increase count for no. of edges
 		// cout << a << " " << adj[a].back().first << " " << adj[a].back().second << endl;
 	}
