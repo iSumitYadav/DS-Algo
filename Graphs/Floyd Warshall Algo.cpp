@@ -13,6 +13,8 @@ void floydWarshall(int g[V][V]){
 
 			if(g[i][j] != INF)
 				path[i][j] = i;
+			else
+				path[i][j] = -1;
 		}
 	}
 
