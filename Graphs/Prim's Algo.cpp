@@ -4,6 +4,16 @@ using namespace std;
 typedef pair<int, int> pii;
 typedef pair<int, pii> pipii;
 
+class Compare{
+public:
+    bool operator() (pipii one, pipii two){
+        if(one.first != two.first)
+        	return one.first > two.first;
+        else
+        	return one.second.first < two.second.first;
+    }
+};
+
 class Graph{
 	int V;
 	list<pii> *adj;
@@ -36,19 +46,18 @@ void Graph::primsAlgo(int src){
 	int wt, u, v, idx;
 
 	// (wt, (u, v))
-	priority_queue<pipii, vector<pipii>, greater<pipii>> pq ,temp;
+	priority_queue<pipii, vector<pipii>, Compare> pq ,temp;
 	pq.push(make_pair(0, make_pair(-1, src)));
 	wts[src] = 0;
 
 	list<pii>::iterator it;
 
-	// for(int count=0; count<V; count++){
 	while(!pq.empty()){
-		temp = pq;
+		/*temp = pq;
 		while(!temp.empty()){
 			cout << temp.top().first << " " << temp.top().second.first << " " << temp.top().second.second << endl;
 			temp.pop();
-		}cout << "---------------" << endl;
+		}cout << "---------------" << endl;*/
 
 		pipii edge = pq.top();
 		pq.pop();
@@ -56,24 +65,21 @@ void Graph::primsAlgo(int src){
 		u = edge.second.first;
 		v = edge.second.second;
 		visited[v] = true;
-		printf("%d---(%d)---%d\n", u, wt, v);
 
 		for(it=adj[v].begin(); it!=adj[v].end(); it++){
-			// cout << (*it).first << " " << (*it).second << endl;
 			if(visited[(*it).first]==false && (*it).second < wts[(*it).first]){
 				idx = (*it).first;
 				wts[idx] = (*it).second;
-				//min = (*it).second;
-				// cout << "min= " << min << endl;
 				pq.push(make_pair(wts[idx], make_pair(v, idx)));
 				parent[idx] = v;
 			}
-		}// cout << idx << " aaa " << endl;
+		}
 		
 	}
 
+	printf("prnt  wt    V\n");
 	for(int i=1; i<V; i++){
-		//cout << parent[i] << " " << i << endl;
+		printf("%d----(%d)----%d\n", parent[i], wts[i], i);
 	}
 }
 
