@@ -24,6 +24,7 @@ public:
 
 void Graph::addEdge(int u, int v){
 	adj[u].push_back(v);
+	// No back edge OR edge from dest to src, coz that'll be wrongly detected as a cycle.
 }
 
 int Graph::findParent(int i){
