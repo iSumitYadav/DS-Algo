@@ -105,6 +105,7 @@ void Graph::runKrushkalAlgo(){
 		wt = pq.top().first;
 		src = pq.top().second.first;
 		dest = pq.top().second.second;
+		pq.pop();
 
 		src_parent = findParent(src);
 		dest_parent = findParent(dest);
@@ -113,7 +114,6 @@ void Graph::runKrushkalAlgo(){
 			printf("%2d----(%2d)----%2d\n", src, wt, dest);
 			unionSet(src_parent, dest_parent);
 		}
-		pq.pop();
 	}printf("\n");
 }
 
