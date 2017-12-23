@@ -13,7 +13,7 @@ public:
 		adj = new list<int>[V];
 		parent = new int[V];
 		for(int i=0; i<V; i++)
-			parent[i] = -1;
+			parent[i] = i;
 	}
 
 	void addEdge(int, int);
@@ -28,7 +28,10 @@ void Graph::addEdge(int u, int v){
 }
 
 int Graph::findParent(int i){
-	if(parent[i] == -1)
+	// if(parent[i] == -1)
+	// 	return i;
+
+	if(parent[i] == i)
 		return i;
 
 	return findParent(parent[i]);
@@ -60,7 +63,7 @@ bool Graph::isCyclic(){
 }
 
 int main(){
-	Graph g(4, 3);
+	Graph g(4, 5);
 
 	g.addEdge(0, 1);
 	g.addEdge(1, 2);
