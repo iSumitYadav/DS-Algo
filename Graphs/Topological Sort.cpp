@@ -35,16 +35,28 @@ void Graph::dfs(char src, stack<char> &s){
 		}
 	}
 
+	vi[src] = true;
 	s.push(src+65);
 }
 
 void Graph::runTopologicalSort(){
 	stack<char> s;
 
-	for(int src=0; src<V; src++){
+	srand(time(NULL));
+	int randSrc = rand() % V, src = randSrc;
+
+	do{
 		if(!vi[src])
 			dfs(src, s);
-	}
+		src = (src+1)%V;
+	}while(src != randSrc);
+
+	/*int cnt = 0;
+	for(src=randSrc; cnt<V; src=(src+1)%V){
+		if(!vi[src])
+			dfs(src, s);
+		cnt++;
+	}*/
 
 	while(!s.empty()){
 		printf("%c ", s.top());
