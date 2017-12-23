@@ -26,16 +26,17 @@ void Graph::addEdge(char u, char v){
 }
 
 void Graph::dfs(char src, stack<char> &s){
-	list<char>::iterator it;
+	vi[src] = true;
 
+	list<char>::iterator it;
 	for(it=adj[src].begin(); it!=adj[src].end(); it++){
 		if(!vi[*it-65]){
-			vi[*it-65] = true;
+			// vi[*it-65] = true;
 			dfs(*it-65, s);
 		}
 	}
 
-	vi[src] = true;
+	// vi[src] = true;
 	s.push(src+65);
 }
 
