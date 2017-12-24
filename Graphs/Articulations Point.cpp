@@ -37,7 +37,7 @@ void Graph::articulationPointUtil(int u, vector<bool> &visited, vector<int> &par
 
 			articulationPointUtil(*it, visited, parent, discovery, low, ap, curr_time);
 
-			// 
+			// update the lowest_time of this src to the earliest explored node in the subtree rooted with adj node(*it)
 			low[u] = min(low[u], low[*it]);
 
 			// If root node and has more than 1 child, then it's an articulation point
@@ -61,6 +61,7 @@ void Graph::articulationPoint(){
 	vector<bool> visited(V, false);
 	vector<int> parent(V, -1);
 	vector<int> discovery(V, -1);
+	// low[v] indicates earliest visited vertex reachable from subtree rooted with v
 	vector<int> low(V, -1);
 	set<int> ap;
 	int curr_time = 0;

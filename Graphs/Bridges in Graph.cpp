@@ -34,13 +34,16 @@ void Graph::findBridgesUtil(int src, vector<bool> &visited, vector<int> &parent,
 			parent[*it] = src;
 			findBridgesUtil(*it, visited, parent, discovery_time, lowest_time, curr_time);
 
+			// update the lowest_time of this src to the earliest explored node in the subtree rooted with adj node(*it)
 			lowest_time[src] = min(lowest_time[src], lowest_time[*it]);
 
 			// if the curr node has already been discovered/explored before it's child than this src node is connected via a Bridge
+			// If the lowest(expolred very early) time of adj node (all the subtree nodes under *it(adj node)) is greater than the discovery_time of the src node, it means that THERE IS NO NODE(subtree of adj node) which connects to the SRC node and hence the PATH from SRC to this adj node (*it) is indeed a Bridge, coz removing this will disconnect the graph
 			if(discovery_time[src] < lowest_time[*it])
 				cout << src << " " << *it << endl;
-
-		}else if(*it != parent[src]){
+		}
+		// adj node of src is previously visited and is not immediate parent of src node, it means that there is a back-edge to an already visited node which is in subtree of current src node
+		else if(*it != parent[src]){
 			lowest_time[src] = min(lowest_time[src], discovery_time[*it]);
 		}
 	}
@@ -50,12 +53,14 @@ void Graph::findBridges(){
 	vector<bool> visited(V, false);
 	vector<int> parent(V, -1);
 	vector<int> discovery_time(V, -1);
+	// lowest_time[v] indicates earliest visited vertex reachable from subtree rooted with v
 	vector<int> lowest_time(V, -1);
 
 	int curr_time = 0;
 
 	for(int i=0 ;i<V; i++){
-		findBridgesUtil(i, visited, parent, discovery_time, lowest_time, &curr_time);
+		if(!visited[i])
+			findBridgesUtil(i, visited, parent, discovery_time, lowest_time, &curr_time);
 	}
 }
 
@@ -87,6 +92,20 @@ int main(){
     g3.addEdge(3, 5);
     g3.addEdge(4, 5);
     g3.findBridges();
+
+    cout << "\nBridges in fourth graph \n";
+    Graph g4(8);
+    g4.addEdge(0, 1);
+    g4.addEdge(0, 2);
+    g4.addEdge(1, 2);
+    g4.addEdge(2, 3);
+    g4.addEdge(3, 4);
+    g4.addEdge(4, 5);
+    g4.addEdge(4, 6);
+    g4.addEdge(5, 6);
+    g4.addEdge(5, 7);
+    
+    g4.findBridges();
 
 	return 0;
 }
