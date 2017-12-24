@@ -109,5 +109,19 @@ int main(){
     g3.addEdge(4, 5);
     g3.articulationPoint();
 
+    cout << "\nArticulation points in fourth graph \n";
+    Graph g4(8);
+    g4.addEdge(0, 1);
+    g4.addEdge(0, 2);
+    g4.addEdge(1, 2);
+    g4.addEdge(2, 3);
+    g4.addEdge(3, 4);
+    g4.addEdge(4, 5);
+    g4.addEdge(4, 6);
+    g4.addEdge(5, 6);
+    g4.addEdge(5, 7);
+    
+    g4.articulationPoint();
+
 	return 0;
 }
