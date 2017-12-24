@@ -1,3 +1,4 @@
+// https://www.geeksforgeeks.org/articulation-points-or-cut-vertices-in-a-graph/
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -36,16 +37,21 @@ void Graph::articulationPointUtil(int u, vector<bool> &visited, vector<int> &par
 
 			articulationPointUtil(*it, visited, parent, discovery, low, ap, curr_time);
 
+			// 
 			low[u] = min(low[u], low[*it]);
 
+			// If root node and has more than 1 child, then it's an articulation point
 			if(parent[u] == -1 && children >= 2){
 				ap.insert(u);
 			}
 
+			// If not root node and discovery of parent node is before the earliest of the child node discovered under this parent node
 			if(parent[u] != -1 && low[*it] >= discovery[u]){
 				ap.insert(u);
 			}
-		}else if(*it != parent[u]){
+		}
+		// Back-Edge, if the child of current node is already explored and not parent of current node : it means this child node is explored before this current parent by some other parent node having an edge to this child and then it's possible that it's disovered before the current parent
+		else if(*it != parent[u]){
 			low[u] = min(low[u], discovery[*it]);
 		}
 	}
