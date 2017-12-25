@@ -21,6 +21,9 @@ int modExpo(int x, int y, int p){
 	}*/
 
 	// Modular Exponentiation
+
+	x = x % p; // update x if it is >= p
+
 	while(y > 0){
 		if(y & 1)
 			x_pow_y = (x_pow_y*x) % p;
