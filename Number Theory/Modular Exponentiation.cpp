@@ -11,13 +11,22 @@ int modExpo(int x, int y, int p){
 
 	int x_pow_y = 1;
 
-	// O(log y)
-	while(y > 0){
+	// O(log y) Overflow may occur for large value of x
+	/*while(y > 0){
 		if(y & 1)
 			x_pow_y = x_pow_y * x;
 
-		y = y>>1; // y = y/2
+		y = y >> 1; // y = y/2
 		x = x*x;
+	}*/
+
+	// Modular Exponentiation
+	while(y > 0){
+		if(y & 1)
+			x_pow_y = (x_pow_y*x) % p;
+
+		y = y >> 1;
+		x = (x*x) % p;
 	}
 
 	// cout<< x_pow_y << endl;
