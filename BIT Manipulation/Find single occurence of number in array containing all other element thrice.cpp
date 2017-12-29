@@ -3,6 +3,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// https://www.careercup.com/question?id=7902674
+
 /*
 The code works in similar line with the question of "finding the element which appears once in an array - containing other elements each appearing twice". Solution is to XOR all the elements and you get the answer.
 
