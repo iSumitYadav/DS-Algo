@@ -17,11 +17,35 @@ int pythagoreanTriplet(int arr[], int n){
 	return 0;
 }
 
+// O(n^2)
+int pythagoreanTripletImproved(int arr[], int n){
+	// Squaring is necessary coz of negative elements
+	for(int i=0; i<n; i++)
+		arr[i] = arr[i] * arr[i];
+
+	sort(arr, arr+n);
+
+	for(int i=n-1; i>=2; i--){
+		int l=0, r=i-1;
+
+		while(l < r){
+			if(arr[i] == arr[l] + arr[r])
+				return 1;
+
+			(arr[i] > arr[l] + arr[r]) ? l++ : r--;
+		}
+	}
+
+	return 0;
+}
+
 int main(){
 	int arr[] = {1, 2, 3, 4, 5};
 	int n = sizeof(arr)/sizeof(arr[0]);
 
 	printf("%s\n", pythagoreanTriplet(arr, n) ? "Pythagorean Triplet Found" : "NO Pythagorean Triplet Found");
+
+	printf("\n%s\n", pythagoreanTripletImproved(arr, n) ? "Pythagorean Triplet Found" : "NO Pythagorean Triplet Found");
 
 	return 0;
 }
